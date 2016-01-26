@@ -12,6 +12,7 @@ Migration process for subversion to git
 # aptitude install subversion
 # aptitude install subversion-tools
 # aptitude install git
+# aptitude install git-extras
 
 2. Checkout repo to covert (to bornite it this example):
 $ mkdir -p ~/svn
