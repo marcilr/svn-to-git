@@ -5,6 +5,9 @@ Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
 
 Filelist
 ========
+migration-process.txt
+  Migration process for subversion to git
+
 syntax.txt
   Syntax
 
