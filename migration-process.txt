@@ -6,11 +6,12 @@ Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
 Migration process for subversion to git
 
 
-1. Install subversion and subversion-tools packages as needed:
+1. Install subversion, subversion-tools, and packages as needed:
 # aptitude update
 # aptitude upgrade
 # aptitude install subversion
 # aptitude install subversion-tools
+# aptitude install git
 
 2. Checkout repo to covert (to bornite it this example):
 $ mkdir -p ~/svn
