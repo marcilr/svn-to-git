@@ -12,10 +12,48 @@ Migration process for subversion to git
 # aptitude install subversion
 # aptitude install subversion-tools
 
-2. Create a file called users.txt that has this mapping in a format like this:
+2. Checkout repo to covert (to bornite it this example):
+$ mkdir -p ~/svn
+$ cd ~/svn
+$ svn co svn+ssh://htpc/data/svnroot/software/software
+A    software/README
+A    software/links.txt
+A    software/svn_ext_val.txt
+A    software/software.txt
+...
+Checked out revision 15.
+
+Fetching external item into 'software/window-manager/xorg/syntax':
+A    software/window-manager/xorg/syntax/syntax.txt
+A    software/window-manager/xorg/syntax/xserver.txt
+A    software/window-manager/xorg/syntax/README
+Checked out external at revision 3.
+
+Checked out revision 5.
+Checked out revision 10.
+Checked out revision 9.
+$
+
+
+3. Create a file called users.txt that has this mapping in a format like this:
 chacon = Scott Chacon <schacon@geemail.com>
 selse = Someo Nelse <selse@geemail.com>
 
 Extract list of authors that svn users:
+$ cd ~/svn/software
 $ svn log --xml | grep author | sort -u | \
-  perl -pe 's/.*&gt;(.*?)&lt;.*/$1 = /'
+  perl -pe 's/.*&gt;(.*?)&lt;.*/$1 = /' > users.txt
+$
+
+$ cat users.txt
+<author>marcilr</author>
+
+Clean up generated users.txt:
+$ sed -i 's:<author>marcilr</author>:\
+marcilr = Raymond Marcil <marcilr@gmail.com>:g' users.txt
+
+$ cat users.txt
+marcilr = Raymond Marcil <marcilr@gmail.com>
+
+Looks good.  Granted very short user list.
+
