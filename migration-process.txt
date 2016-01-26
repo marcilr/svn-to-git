@@ -1,0 +1,7 @@
+migration-process.txt
+Created Tue Jan 26 13:34:34 AKST 2016
+Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+
+
+Migration process for subversion to git
+
