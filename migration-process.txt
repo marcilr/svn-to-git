@@ -5,3 +5,17 @@ Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
 
 Migration process for subversion to git
 
+
+1. Install subversion and subversion-tools packages as needed:
+# aptitude update
+# aptitude upgrade
+# aptitude install subversion
+# aptitude install subversion-tools
+
+2. Create a file called users.txt that has this mapping in a format like this:
+chacon = Scott Chacon <schacon@geemail.com>
+selse = Someo Nelse <selse@geemail.com>
+
+Extract list of authors that svn users:
+$ svn log --xml | grep author | sort -u | \
+  perl -pe 's/.*&gt;(.*?)&lt;.*/$1 = /'
