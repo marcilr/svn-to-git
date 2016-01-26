@@ -63,6 +63,29 @@ Looks good.  Granted very short user list.
 4. Convert subversion repo to git using 'gti svn':
 $ git svn clone svn+ssh://marcilr@htpc/data/svnroot/software/software/ \
 --authors-file=users.txt --no-metadata my_project
+        A       links.txt
+r1 = 15bd65fc712aa59001b8dc4f69073ed5dc04a426 (refs/remotes/git-svn)
+        A       software.txt
+r2 = ca2676de4a5aeb5588fd20a7ef653c0a30f4f2db (refs/remotes/git-svn)
+        A       svn_ext_val.txt
+r3 = 98d8783e654abbf4742a138092cdaf6919fcd05a (refs/remotes/git-svn)
+        A       README
+r4 = ed81fdf15b37f9427fc85a8fb4d6172b891456a7 (refs/remotes/git-svn)
+        M       svn_ext_val.txt
+r5 = ac2ffefc17f9cbae3f26c5a4b6e3a25a11542f5d (refs/remotes/git-svn)
+        M       svn_ext_val.txt
+r6 = c773647d43647b5f26cb2a0f71bf1619020c17d7 (refs/remotes/git-svn)
+        M       svn_ext_val.txt
+r7 = 503007ca5685634093544cf714b4af92a8203b2a (refs/remotes/git-svn)
+        M       svn_ext_val.txt
+r8 = 484bd5ec64d03f32d6af81e34fdc59b26acf0b17 (refs/remotes/git-svn)
+        M       svn_ext_val.txt
+r9 = 6af246fb9e28e78677f54ef2dc494b478c9ae43d (refs/remotes/git-svn)
+Checked out HEAD:
+  svn+ssh://marcilr@htpc/data/svnroot/software/software r9
+$ 
+
+Check log entries appears to have worked fine.
 
 Options:
   --authors-file     If this option is specified and git svn encounters an
