@@ -57,3 +57,36 @@ marcilr = Raymond Marcil <marcilr@gmail.com>
 
 Looks good.  Granted very short user list.
 
+4. Convert subversion repo to git using 'gti svn':
+$ git svn clone svn+ssh://marcilr@htpc/data/svnroot/software/software/ \
+--authors-file=users.txt --no-metadata my_project
+
+Options:
+  --authors-file     If this option is specified and git svn encounters an
+                     SVN committer name that does not exist in the authors-file,
+                     git svn will abort operation.  The user will then have to
+                     add the appropriate entry.  Re-running the previous git
+                     svn command after the authors-file is modified should
+                     continue operation.
+                     -- git-scm.com/docs/git-svn/1.7.7.2
+
+  --no-metadata      Set the noMetadata option in the [svn-remote] config.
+                     This option is not recommended, please read the
+                     svn.noMetadata section of this manpage before using
+                     this option.
+                     -- man git svn
+
+
+-- git-scm.com/book/en/v2/Git-and-Other-Systems-Migrating-to-Git
+
+
+Links
+=====
+9.2 Git and Other Systems - Migrating to Git
+Git Pro, 2nd Edition (2014)
+https://git-scm.com/book/en/v2/Git-and-Other-Systems-Migrating-to-Git
+
+git-svn(1) Manual Page
+git-svn - Bidirectional operation between a Subversion repository and git
+git --local-branching-on-the-cheap
+https://git-scm.com/docs/git-svn/1.7.7.2
