@@ -139,7 +139,32 @@ Git, here's how to remove the extra branch:
 
   $ git branch -d trunk
 
-6. The last thing to do is add your new Git server as a remote and push to it.
+6. To add empty github remote to push repo to:
+$ git remote add <shortname> <url>
+
+For example:
+  bornite:~/svn/software/my_project$ git remote add \
+  origin https://github.com/marcilr/git-software
+
+  bornite:~/svn/software/my_project$ git remote -v
+  origin  https://github.com/marcilr/git-software (fetch)
+  origin  https://github.com/marcilr/git-software (push)
+  marcilr@bornite:~/svn/software/my_project$
+
+  Now push to github repo:
+  bornite:~/svn/software/my_project$ git push origin master
+  Username for 'https://github.com': marcilr
+  Password for 'https://marcilr@github.com':
+  Counting objects: 27, done.
+  Delta compression using up to 2 threads.
+  Compressing objects: 100% (26/26), done.
+  Writing objects: 100% (27/27), 15.26 KiB | 0 bytes/s, done.
+  Total 27 (delta 12), reused 0 (delta 0)
+  To https://github.com/marcilr/git-software
+   * [new branch]      master -> master
+  bornite:~/svn/software/my_project$
+
+7. The last thing to do is add your new Git server as a remote and push to it.
 Here is an example of adding your server as a remote:
 
 $ git remote add origin git@my-git-server:myrepository.git
