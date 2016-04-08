@@ -15,7 +15,7 @@ where your local repository will be pushed.
 Set the new remote:
 $ git remote add origin remote repository URL
 
-Vefify new remote URL:
+Verify new remote URL:
 $ git remote -v
 
 3. Push local repository to github:
