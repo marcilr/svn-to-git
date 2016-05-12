@@ -1,0 +1,10 @@
+README
+Created Thu May 12 08:09:30 AKDT 2016
+Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+
+
+The original svn-to-git-convert to convert subversion repos to gti works well
+but I need to refactor it to work on hierarchical directory repos.
+
+Also the originl appears to checkout hierarchical directories underneath the
+repo being converted.  Need to investigate, understand and fix.
