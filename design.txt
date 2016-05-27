@@ -3,6 +3,14 @@ Created Thu May 26 15:38:29 AKDT 2016
 Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
 
 
+Design
+
+
+Thinking that the new svn-to-git script should be implemented using ansible.
+In this way all the heavy lifting can be implemented on the subversion and
+git server.  Without having to transfer all the data over the wire.
+
+
 The prior svn-to-git implemetation uses:
 
 
