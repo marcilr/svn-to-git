@@ -20,6 +20,13 @@ ansible.txt
 design.txt
   Design for subversion to git
 
+implementation.txt
+Created Thu Jun  9 15:02:02 AKDT 2016
+Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+
+implementation.txt
+  Steps required to convert svn to git repo
+
 svn-to-git.yml
   Ansible playbook to convert svn repo to git
   Execute with:
