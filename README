@@ -10,3 +10,15 @@ directory repos.
 Also the originl appears to checkout hierarchical directories
 underneath the repo being converted.  Need to investigate,
 understand and fix.
+
+
+Filelist
+========
+ansible.txt
+  ansible - run a command somewhere else
+
+design.txt
+  Design for subversion to git
+
+svn-to-git.yml
+  Ansible playbook to convert svn repo to git
