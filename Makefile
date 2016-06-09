@@ -20,20 +20,28 @@
 #
 
 #
+# Configuration
+#
+
+# Ansible playbook to execute for svn to git conversion
+PLAYBOOK=./svn-to-git.yml
+
+#
 # Binaries
 #
-CAT    = cat
-CP     = cp
-CUT    = cut
-FIND   = find
-GREP   = grep
-MKDIR  = mkdir
-PS2PDF = ps2pdf
-RM     = rm -rf
-RSYNC=/usr/bin/rsync -va --progress --stats --exclude ".svn" --exclude "*~" --exclude "*bak"
-SED    = sed
-TAR    = tar
-TR     = tr
+ANSIBLEPLAYBOOK = ansible-playbook
+CAT             = cat
+CP              = cp
+CUT             = cut
+FIND            = find
+GREP            = grep
+MKDIR           = mkdir
+PS2PDF          = ps2pdf
+RM              = rm -rf
+RSYNC           = /usr/bin/rsync -va --progress --stats --exclude ".svn" --exclude "*~" --exclude "*bak"
+SED             = sed
+TAR             = tar
+TR              = tr
 
 
 # DIST directory
@@ -72,9 +80,11 @@ BZ2 = ${BASENAME}-${VERSION}.tar.bz2
 # Define phony. i.e. non-file targets.
 .PHONY: all clean mostlyclean cycle dist
 
+#
 # Run clean, no build target yet.
-all:
-	@echo "Nothing to do..."
+# Just running test target at this point (June 9, 2016)
+#
+all: test
 
 #
 # Build source distribution.
@@ -109,3 +119,6 @@ clean:
 	${RM} ${BZ2} *.tmp *~
 
 cycle: clean 
+
+test:
+	${ANSIBLEPLAYBOOK} ${PLAYBOOK}
