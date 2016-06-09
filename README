@@ -32,3 +32,6 @@ svn-to-git.yml
   Execute with:
   $ ansible-playbook svn-to-git.yml
 
+VERSION
+  svn to git conversion project version
+
