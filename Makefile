@@ -1,7 +1,8 @@
 # -*- Mode: Makefile -*-
 #
-# Created Thu Jun  9 15:12:28 AKDT 2016
-# Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+# Created Thu Jun  9 15:13:35 AKDT 2016
+# by Raymond E. Marcil <marcilr@gmail.com>
+# Copyright (C) 2016 Raymond E. Marcil
 # 
 # Permission is granted to copy, distribute and/or modify this document
 # under the terms of the GNU Free Documentation License, Version 1.3
