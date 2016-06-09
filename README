@@ -22,3 +22,6 @@ design.txt
 
 svn-to-git.yml
   Ansible playbook to convert svn repo to git
+  Execute with:
+  $ ansible-playbook svn-to-git.yml
+
