@@ -1,0 +1,86 @@
+# svn-to-git.yml2
+# Created Fri May 27 10:39:03 AKDT 2016
+# Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+#
+# Debugging output:
+#   register: out
+#   - debug: var=out.stdout_lines
+#
+# --serverfault.com/questions/537060/how-to-see-stdout-of-ansible-commands
+#
+#
+# Links
+# =====
+# How to see stdout of ansible commands?
+# http://serverfault.com/questions/537060/how-to-see-stdout-of-ansible-commands
+#
+---
+- hosts: htpc
+
+  # Variables
+  vars:
+    svnrepo: "/data/svnroot/tex/latex/latex"
+#    svnrepo: "/bad/test/path"
+    gitrepo: "/data/git/tex/latex"
+    tmpdir: "/tmp/svn-to-git"
+
+  tasks:
+    # Output Variables
+    - debug: var=svnrepo verbosity=2
+    - debug: var=gitrepo verbosity=2
+    - debug: var=tmpdir verbosity=2
+
+    - shell: echo "hello world"
+
+    - shell: /bin/hostname
+      register: out
+    - debug: var=out.stdout_lines
+
+    - shell: type git
+      register: out
+    - debug: var=out.stdout_lines
+
+    #
+    # Determine if svnrepo directory exists
+    #
+    # Conditionally execute a task if directory exists?
+    # https://groups.google.com/forum/#!msg/ansible-project/ifi8_8FTKVo/QZKcBi0j_xIJ
+    #
+    - name: Check if path exists
+#      stat: path=/data/svnroot/tex/latex/latex
+      stat: path={{svnrepo}}
+      register: check_path
+
+    - name: It exists
+      debug: msg='The path {{svnrepo}} exists!'
+      when: check_path.stat.exists
+
+    - name: It doesn't exist
+      #debug: msg="Boohoo, the path doesn't exist..."
+      fail: msg="The path {{svnrepo}} doesn't exist..."
+      when: check_path.stat.exists == false
+
+    #
+    # Determine if tmpdir directory exists using stat.
+    #
+    # Conditionally execute a task if directory exists?
+    # https://groups.google.com/forum/#!msg/ansible-project/ifi8_8FTKVo/QZKcBi0j_xIJ
+    #
+    - name: Check if path exists
+#      stat: path=/data/svnroot/tex/latex/latex
+      stat: path={{tmpdir}}
+      register: check_path
+
+    # Re: [ansible-project] file module: absent recurse=yes and Directory not empty
+    # https://www.mail-archive.com/ansible-project@googlegroups.com/msg04038.html
+
+    - name: It exists
+      debug: msg='The path {{tmpdir}} exists!'
+      when: check_path.stat.exists
+
+    - name: It doesn't exist
+      #debug: msg="Boohoo, the path doesn't exist..."
+      fail: msg="The path {{tmpdir}} doesn't exist, creating..."
+      when: check_path.stat.exists == false
+
+
