@@ -1,0 +1,6 @@
+svn-to-git.txt
+Created Thu Sep 24 10:52:10 AKDT 2015
+Copyright (C) 2015 by Raymond E. Marcil <marcilr@gmail.com>
+
+
+Subversion to git migration
