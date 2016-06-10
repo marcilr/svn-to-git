@@ -27,6 +27,9 @@ Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
 implementation.txt
   Steps required to convert svn to git repo
 
+links.txt
+  Subversion to git related links
+
 svn-to-git.yml
   Ansible playbook to convert svn repo to git
   Execute with:
