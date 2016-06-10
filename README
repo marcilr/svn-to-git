@@ -30,6 +30,9 @@ implementation.txt
 links.txt
   Subversion to git related links
 
+svn-to-git.txt
+  Subversion to git migration
+
 svn-to-git.yml
   Ansible playbook to convert svn repo to git
   Execute with:
