@@ -1,0 +1,8 @@
+#!/bin/bash
+# svn-to-git
+# Created Mon Jun 13 14:47:05 AKDT 2016
+# Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+#
+# Converted svn repository to git.
+#
+
