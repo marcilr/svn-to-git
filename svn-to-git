@@ -77,6 +77,7 @@ function usage(){
   message "                    like: /data/svnroot/tex/wrt54gl/wrt54gl/"
   message "  <git>           Local git repository path."
   message "                    like: /data/git/tex/wrt54gl/"
+  message
 }
 
 
