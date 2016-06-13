@@ -90,7 +90,8 @@ function usage(){
   message "  <git>           Local git repository path."
   message "                    like: /data/git/tex/wrt54gl/"
   message
-}
+  exit 0
+} # End usage()
 
 
 #
@@ -111,17 +112,21 @@ function process-cli-args(){
   debug "process-cli-args(): number args=${#commandline_args[@]}"
 
   # Loop over command line arguments (in correct order).
-  for arg in "${commandline_args[@]}"; do
-    case ${arg} in
+  for ARG in "${commandline_args[@]}"; do
+    case ${ARG} in
       "-d" | "--debug")
         DEBUG=true
         debug "DEBUG=true"
         ;;
       "-h" | "--help")
         usage
-        exit 0
         ;;
       *)
+        if [ -z ${SVN} ]; then
+          SVNREPO=${ARG}
+        else
+          GITRPEO=${ARG}
+        fi
         ;;
     esac
   done
@@ -184,4 +189,3 @@ create-temporary-directory
 
 
 debug "Main: END"
-
