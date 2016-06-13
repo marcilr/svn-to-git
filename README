@@ -30,6 +30,9 @@ implementation.txt
 links.txt
   Subversion to git related links
 
+svn-to-git
+  Bash script to convert subversion repository to git.
+
 svn-to-git.txt
   Subversion to git migration
 
