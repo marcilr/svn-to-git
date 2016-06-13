@@ -123,6 +123,7 @@ function process-cli-args(){
 # =================================================
 # Main
 # =================================================
+debug "Main: START"
 
 # Save command line arguments in global variable for use by process-cli-args.
 commandline_args=("$@")
@@ -137,3 +138,6 @@ BASE=`${BASENAME} "${0}"`
 TMPDIR="/tmp/${BASE}"
 
 debug "TMPDIR: ${TMPDIR}"
+
+debug "Main: END"
+
