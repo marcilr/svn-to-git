@@ -26,7 +26,7 @@ GITROOT=/data/git
 # Binaries
 # =================================================
 BASENAME=/usr/bin/basename
-
+MKDIR=/bin/mkdir
 
 # =================================================
 # Functions
@@ -118,6 +118,19 @@ function process-cli-args(){
 
 }   # End process-cli-args()
 
+#
+# Create temporary directory
+# Removes and creates new temporary directory.
+#
+# USES: TMPDIR
+#
+function create-temporary-directory() {
+  debug "create-temporary-directory() START"
+
+
+  debug "create-temporary-directory() END"
+ 
+}   # End create-temporary-directory()
 
 
 # =================================================
@@ -137,7 +150,10 @@ BASE=`${BASENAME} "${0}"`
 
 TMPDIR="/tmp/${BASE}"
 
+# Create temporary directory
 debug "TMPDIR: ${TMPDIR}"
+create-temporary-directory
+
 
 debug "Main: END"
 
