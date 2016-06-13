@@ -5,6 +5,17 @@
 #
 # Converted svn repository to git.
 #
+# Usage: ${0} <svn> <git>"
+#     -d | --debug   Enable debugging.
+#     -h | --help    Create non-hierarchical repository.
+#     <svn>          Local subversion repository path.
+#                      like: /data/svnroot/tex/wrt54gl/wrt54gl/
+#     <git>          Local git repository path.
+#                      like: /data/git/tex/wrt54gl/
+#
+# 1. Create /tmp/svn-to-git/ temporary directory
+# 2. Copy source svn repo to temporary directory
+#
 
 # =================================================
 # Configuration
