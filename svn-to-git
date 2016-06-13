@@ -32,6 +32,39 @@ BASENAME=/usr/bin/basename
 # Functions
 # =================================================
 
+#
+# debug()
+# Output debugging text.
+# INPUT: $1 - Text to output if DEBUG="
+#
+function debug {
+
+  if [ ${DEBUG} = "true" ]; then
+    echo "debug() ${1}"
+  fi
+
+}
+
+
+#
+# message()
+# Display specified message passed as argument.
+#
+# INPUT
+# =====
+# Message to display as argument.
+#
+# RESULTS
+# =======
+# Displays argument to stdio.
+#
+function message {
+
+  echo ${1}
+
+}
+
+
 
 # =================================================
 # Main
@@ -41,4 +74,4 @@ BASE=`${BASENAME} "${0}"`
 
 TMPDIR="/tmp/${BASE}"
 
-echo "TMPDIR: ${TMPDIR}"
+debug "TMPDIR: ${TMPDIR}"
