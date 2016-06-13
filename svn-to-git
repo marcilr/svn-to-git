@@ -60,7 +60,7 @@ function debug {
 #
 function message {
 
-  echo ${1}
+  echo "${1}"
 
 }
 
@@ -74,16 +74,62 @@ function usage(){
   message "   -d | --debug   Enable debugging."
   message "   -h | --help    Create non-hierarchical repository."
   message "  <svn>           Local subversion repository path."
-  message "                  Like: /data/svnroot/tex/wrt54gl/wrt54gl/"
+  message "                    like: /data/svnroot/tex/wrt54gl/wrt54gl/"
   message "  <git>           Local git repository path."
-  message "                  Like: /data/git/tex/wrt54gl/"
+  message "                    like: /data/git/tex/wrt54gl/"
 }
+
+
+#
+# process-cli-args()
+#
+# Links
+# =====
+# How to process command-line args in bash scripts
+# http://debaan.blogspot.com/2007/06/how-to-process-command-line-args-in.html
+#
+function process-cli-args(){
+
+  if [ -z ${2} ]; then usage; fi
+
+  debug "process-cli-args(): START"
+
+  # Display number of command line arguments
+  debug "process-cli-args(): number args=${#commandline_args[@]}"
+
+  # Loop over command line arguments (in correct order).
+  for arg in "${commandline_args[@]}"; do
+    case ${arg} in
+      "-d" | "--debug")
+        DEBUG=true
+        debug "DEBUG=true"
+        ;;
+      "-h" | "--help")
+        usage
+        exit 0
+        ;;
+      *)
+        ;;
+    esac
+  done
+
+  debug "process-cli-args(): END"
+
+}   # End process-cli-args()
 
 
 
 # =================================================
 # Main
 # =================================================
+
+# Save command line arguments in global variable for use by process-cli-args.
+commandline_args=("$@")
+
+# Process command-line arguments.
+process-cli-args
+
+
 
 BASE=`${BASENAME} "${0}"`
 
