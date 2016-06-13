@@ -65,6 +65,21 @@ function message {
 }
 
 
+#
+# usage()
+# Display usage and exit.
+#
+function usage(){
+  message "Usage: ${0} <svn> <git>"
+  message "   -d | --debug   Enable debugging."
+  message "   -h | --help    Create non-hierarchical repository."
+  message "  <svn>           Local subversion repository path."
+  message "                  Like: /data/svnroot/tex/wrt54gl/wrt54gl/"
+  message "  <git>           Local git repository path."
+  message "                  Like: /data/git/tex/wrt54gl/"
+}
+
+
 
 # =================================================
 # Main
