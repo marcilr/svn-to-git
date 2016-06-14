@@ -136,6 +136,9 @@ function process-cli-args(){
     esac
   done
 
+  debug "process-cli-args() SVNREPO=${SVNREPO}"
+  debug "process-cli-args() GITREPO=${GITREPO}"
+
   debug "process-cli-args() END"
 
 } # End process-cli-args()
