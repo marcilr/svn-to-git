@@ -173,6 +173,19 @@ function create-temporary-directory() {
 } # End create-temporary-directory()
 
 
+#
+# copy-svn-repo()
+#
+# Copy the subversion repository to temporary directory.
+#
+# USES: SVNREPO - Subversion repostory
+#
+function copy-svn-repo() {
+  debug "copy-svn-repo() START"
+
+
+  debug "copy-svn-repo() END"
+} # End copy-svn-repo()
 
 
 # =================================================
@@ -195,5 +208,7 @@ TMPDIR="/tmp/${BASE}"
 # Create temporary directory
 create-temporary-directory
 
+# Copy subversion repo
+copy-svn-repo
 
 debug "Main END"
