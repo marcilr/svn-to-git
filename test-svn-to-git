@@ -9,8 +9,8 @@
 # =================================================
 # Configuration
 # =================================================
-SVNREPO=/data/svnroot/tex/tex
-GITREPO=/tmp/tex
+SVNREPO=/data/svnroot/tex/tex/
+GITREPO=/tmp/tex/
 
 
 # =================================================
