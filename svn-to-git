@@ -103,10 +103,10 @@ function usage(){
 #
 function process-cli-args(){
 
-  debug "process-cli-args(): START"
+  debug "process-cli-args() START"
 
   # Display number of command line arguments
-  debug "process-cli-args(): number args=${#commandline_args[@]}"
+  debug "process-cli-args() number args=${#commandline_args[@]}"
 
   if [ ${#commandline_args[@]} -lt 2 ]; then
     usage
@@ -116,7 +116,7 @@ function process-cli-args(){
 
   # Loop over command line arguments (in correct order).
   for ARG in "${commandline_args[@]}"; do
-    debug "process-cli-args(): ARG=${ARG}"
+    debug "process-cli-args() ARG=${ARG}"
     case ${ARG} in
       "-d" | "--debug")
         DEBUG=true
@@ -136,7 +136,7 @@ function process-cli-args(){
     esac
   done
 
-  debug "process-cli-args(): END"
+  debug "process-cli-args() END"
 
 } # End process-cli-args()
 
@@ -175,7 +175,7 @@ function create-temporary-directory() {
 # =================================================
 # Main
 # =================================================
-debug "Main: START"
+debug "Main START"
 
 # Save command line arguments in global variable for use by process-cli-args.
 commandline_args=("$@")
@@ -193,4 +193,4 @@ TMPDIR="/tmp/${BASE}"
 create-temporary-directory
 
 
-debug "Main: END"
+debug "Main END"
