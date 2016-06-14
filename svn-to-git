@@ -90,7 +90,6 @@ function usage(){
   message "  <git>           Local git repository path."
   message "                    like: /data/git/tex/wrt54gl/"
   message
-  exit 0
 } # End usage()
 
 
@@ -104,25 +103,31 @@ function usage(){
 #
 function process-cli-args(){
 
-  if [ -z ${2} ]; then usage; fi
-
   debug "process-cli-args(): START"
 
   # Display number of command line arguments
   debug "process-cli-args(): number args=${#commandline_args[@]}"
 
+  if [ ${#commandline_args[@]} -lt 2 ]; then
+    usage
+    message "Must specify source svn and destination git repos, aborting."
+    exit 1
+  fi
+
   # Loop over command line arguments (in correct order).
   for ARG in "${commandline_args[@]}"; do
+    debug "process-cli-args(): ARG=${ARG}"
     case ${ARG} in
       "-d" | "--debug")
         DEBUG=true
-        debug "DEBUG=true"
+        debug "process-cli-args() DEBUG=true"
         ;;
       "-h" | "--help")
         usage
+        exit 0
         ;;
       *)
-        if [ -z ${SVN} ]; then
+        if [ -z ${SVNREPO} ]; then
           SVNREPO=${ARG}
         else
           GITRPEO=${ARG}
@@ -145,19 +150,19 @@ function process-cli-args(){
 function create-temporary-directory() {
   debug "create-temporary-directory() START"
 
-  debug "TMPDIR: ${TMPDIR}"
+  debug "create-temporary-directory() TMPDIR: ${TMPDIR}"
 
   # Safely remove temporary directory contents
   if [ -d "${TMPDIR}" ]; then
-    debug "Removing ${TMPDIR}"
+    debug "create-temporary-directory() Removing: ${TMPDIR}"
     CMD="${RM} -rf ${TMPDIR}"
-    debug "Executing: ${CMD}"
+    debug "create-temporary-directory() Executing: ${CMD}"
     eval "${CMD}"
   fi
 
-  debug "Creating ${TMPDIR}"
+  debug "create-temporary-directory() Creating: ${TMPDIR}"
   CMD="${MKDIR} ${TMPDIR}"
-  debug "Executing: ${CMD}"
+  debug "create-temporary-directory() Executing: ${CMD}"
   eval "${CMD}"
 
   debug "create-temporary-directory() END"
@@ -178,10 +183,10 @@ commandline_args=("$@")
 # Process command-line arguments.
 process-cli-args
 
-
-
+# Get script name
 BASE=`${BASENAME} "${0}"`
 
+# Build tmporary directory name using basename
 TMPDIR="/tmp/${BASE}"
 
 # Create temporary directory
