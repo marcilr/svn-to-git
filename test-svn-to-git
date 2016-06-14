@@ -1,0 +1,24 @@
+#!/bin/bash
+# test-svn-to-git
+# Created Mon Jun 13 16:04:31 AKDT 2016
+# Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+#
+# Test driver for svn-to-git svn to git script
+#
+
+# =================================================
+# Configuration
+# =================================================
+SVNREPO=/data/svnroot/tex/tex
+GITREPO=/tmp/tex
+
+
+# =================================================
+# Binaries
+# =================================================
+SVNTOGIT=./svn-to-git
+
+
+CMD="${SVNTOGIT} -d ${SVNREPO} ${GITREPO}"
+echo "Executing: ${CMD}"
+eval "${CMD}"
