@@ -130,7 +130,7 @@ function process-cli-args(){
         if [ -z ${SVNREPO} ]; then
           SVNREPO=${ARG}
         else
-          GITRPEO=${ARG}
+          GITREPO=${ARG}
         fi
         ;;
     esac
