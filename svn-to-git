@@ -150,17 +150,17 @@ function process-cli-args(){
 function create-temporary-directory() {
   debug "create-temporary-directory() START"
 
-  debug "create-temporary-directory() TMPDIR: ${TMPDIR}"
+  debug "create-temporary-directory() TMPDIR:    ${TMPDIR}"
 
   # Safely remove temporary directory contents
   if [ -d "${TMPDIR}" ]; then
-    debug "create-temporary-directory() Removing: ${TMPDIR}"
+    debug "create-temporary-directory() Removing:  ${TMPDIR}"
     CMD="${RM} -rf ${TMPDIR}"
     debug "create-temporary-directory() Executing: ${CMD}"
     eval "${CMD}"
   fi
 
-  debug "create-temporary-directory() Creating: ${TMPDIR}"
+  debug "create-temporary-directory() Creating:  ${TMPDIR}"
   CMD="${MKDIR} ${TMPDIR}"
   debug "create-temporary-directory() Executing: ${CMD}"
   eval "${CMD}"
