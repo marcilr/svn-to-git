@@ -39,6 +39,7 @@ GITROOT=/data/git
 BASENAME=/usr/bin/basename
 MKDIR=/bin/mkdir
 RM=/bin/rm
+RSYNC=/usr/bin/rsync
 
 # =================================================
 # Functions
@@ -136,6 +137,11 @@ function process-cli-args(){
     esac
   done
 
+  #
+  # FIXME: Need code here to remove any trailing slash
+  #        from SVNREPO or GITREPO.
+  #
+
   debug "process-cli-args() SVNREPO=${SVNREPO}"
   debug "process-cli-args() GITREPO=${GITREPO}"
 
@@ -182,6 +188,12 @@ function create-temporary-directory() {
 #
 function copy-svn-repo() {
   debug "copy-svn-repo() START"
+
+  debug "copy-svn-repo() SVNREPO=${SVNREPO}"
+
+  if [ -d "${SVNREPO}" ]; then
+    debug "copy-svn-repo() Copying ${SVNREPO} to ${TMPDIR}"
+  fi
 
 
   debug "copy-svn-repo() END"
