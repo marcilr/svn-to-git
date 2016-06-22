@@ -37,12 +37,14 @@
 #    svnrepo: "/bad/test/path"
     gitrepo: "/data/git/tex/latex"
     tmpdir:  "/tmp/svn-to-git"
+    authors: "{{tmpdir}}/authors"
 
   tasks:
     # Output Variables
     - debug: var=svnrepo verbosity=2
     - debug: var=gitrepo verbosity=2
-    - debug: var=tmpdir verbosity=2
+    - debug: var=tmpdir  verbosity=2
+    - debug: var=authors verbosity=2
 
     - shell: echo "hello world"
 
