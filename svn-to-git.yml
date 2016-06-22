@@ -36,7 +36,7 @@
     svnrepo: "/data/svnroot/tex/latex/latex"
 #    svnrepo: "/bad/test/path"
     gitrepo: "/data/git/tex/latex"
-    tmpdir: "/tmp/svn-to-git"
+    tmpdir:  "/tmp/svn-to-git"
 
   tasks:
     # Output Variables
@@ -74,12 +74,12 @@
       when: check_path.stat.exists == false
 
     #
-    # Determine if tmpdir directory exists using stat.
+    # Check if temporary directory exists
     #
     # Conditionally execute a task if directory exists?
     # https://groups.google.com/forum/#!msg/ansible-project/ifi8_8FTKVo/QZKcBi0j_xIJ
     #
-    - name: Check if path exists
+    - name: Check if temporary directory exists
       stat: path={{tmpdir}}
       register: check_path
 
@@ -87,7 +87,7 @@
     # https://www.mail-archive.com/ansible-project@googlegroups.com/msg04038.html
 
     # Advise that /tmp/svn-to-git directory exists
-    - name: It exists
+    - name: Advise temporary directory exists
       debug: msg='The path {{tmpdir}} exists!'
       when: check_path.stat.exists
       
@@ -105,3 +105,73 @@
     #  #debug: msg="Boohoo, the path doesn't exist..."
     #  fail: msg="The path {{tmpdir}} doesn't exist, creating..."
     #  when: check_path.stat.exists == false
+
+    # =========================================
+    # Verify temporary directory exists
+    # =========================================
+    - name: Check if temporary directory exists
+      stat: path={{tmpdir}}
+      register: check_path
+
+    # Advise that temporary directory created
+    - name: Temporary directory created
+      debug: msg='Created {{tmpdir}}'
+      when: check_path.stat.exists
+
+    # On failure to create temporary directory, abort
+    - name: Check for temporary directory
+      fail: msg="Failed to create {{tmpdir}}, aborting."
+      when: check_path.stat.exists == false
+
+    # ==============================================
+    # Create svn directory under temporary directory
+    # ==============================================
+    - name: Creating svn directory under temporary directory
+      shell: /bin/mkdir -p {{tmpdir}}/svn
+      
+    # =========================================
+    # Verify temporary directory/svn exists
+    # =========================================
+    - name: Check if temporary directory/svn exists
+      stat: path={{tmpdir}}/svn
+      register: check_path
+
+    # Advise that temporary directory/svn created
+    - name: Temporary directory created
+      debug: msg='Created {{tmpdir}}/svn'
+      when: check_path.stat.exists
+
+    # On failure to create temporary directory/svn, abort
+    - name: Check for temporary directory/svn
+      fail: msg="Failed to create {{tmpdir}}/svn, aborting."
+      when: check_path.stat.exists == false
+
+
+    # ==============================================
+    # Create git directory under temporary directory
+    # ==============================================
+    - name: Creating git directory under temporary directory
+      shell: /bin/mkdir -p {{tmpdir}}/git
+
+
+    # =========================================
+    # Verify temporary directory/git exists
+    # =========================================
+    - name: Check if temporary directory/git exists
+      stat: path={{tmpdir}}/git
+      register: check_path
+
+    # Advise that temporary directory/git created
+    - name: Temporary directory/git was created
+      debug: msg='Created {{tmpdir}}/git'
+      when: check_path.stat.exists
+
+    # On failure to create temporary directory/svn, abort
+    - name: Check for temporary directory/git
+      fail: msg="Failed to create {{tmpdir}}/git, aborting."
+      when: check_path.stat.exists == false
+
+
+    # =====================================================
+    # Copy svn repo to svn directory in temporary directory
+    # =====================================================
