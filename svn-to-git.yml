@@ -11,6 +11,10 @@
 #    o Determine if svnrepo directory exists, abort if not
 #    o Determine if tmpdir directory exists using stat
 #
+#
+# ...
+# 10. Remove /tmp/svn-to-git
+#
 # Debugging output:
 #   register: out
 #   - debug: var=out.stdout_lines
@@ -84,8 +88,18 @@
     - name: It exists
       debug: msg='The path {{tmpdir}} exists!'
       when: check_path.stat.exists
-
-    - name: It doesn't exist
-      #debug: msg="Boohoo, the path doesn't exist..."
-      fail: msg="The path {{tmpdir}} doesn't exist, creating..."
+      
+    # Advise that /tmp/svn-to-git directory is being created
+    - name: Advise tmpdir is being created
+      debug: msg="Creating {{tmpdir}}"
       when: check_path.stat.exists == false
+      
+    # Create the /tmp/svn-to-git directory
+    - name: Create {{tmpdir}}
+      shell: /bin/mkdir -p {{tmpdir}}
+      when: check_path.stat.exists == false
+
+    #- name: It doesn't exist
+    #  #debug: msg="Boohoo, the path doesn't exist..."
+    #  fail: msg="The path {{tmpdir}} doesn't exist, creating..."
+    #  when: check_path.stat.exists == false
