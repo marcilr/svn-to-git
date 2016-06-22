@@ -60,15 +60,15 @@
     # Conditionally execute a task if directory exists?
     # https://groups.google.com/forum/#!msg/ansible-project/ifi8_8FTKVo/QZKcBi0j_xIJ
     #
-    - name: Check if path exists
+    - name: Check if svnrepo exists
       stat: path={{svnrepo}}
       register: check_path
 
-    - name: It exists
+    - name: The svnrepo exists
       debug: msg='The path {{svnrepo}} exists!'
       when: check_path.stat.exists
 
-    - name: It doesn't exist
+    - name: Fail, svnrepo does not exist
       #debug: msg="Boohoo, the path doesn't exist..."
       fail: msg="The path {{svnrepo}} doesn't exist..."
       when: check_path.stat.exists == false
