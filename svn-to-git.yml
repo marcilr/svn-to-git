@@ -2,6 +2,15 @@
 # Created Fri May 27 10:39:03 AKDT 2016
 # Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
 #
+# Ansible script o convert subversion repo to git.
+#
+# Implementation
+# ==============
+# 1. Define variables
+# 2. Tasks:
+#    o Determine if svnrepo directory exists, abort if not
+#    o Determine if tmpdir directory exists using stat
+#
 # Debugging output:
 #   register: out
 #   - debug: var=out.stdout_lines
@@ -47,7 +56,6 @@
     # https://groups.google.com/forum/#!msg/ansible-project/ifi8_8FTKVo/QZKcBi0j_xIJ
     #
     - name: Check if path exists
-#      stat: path=/data/svnroot/tex/latex/latex
       stat: path={{svnrepo}}
       register: check_path
 
@@ -67,7 +75,6 @@
     # https://groups.google.com/forum/#!msg/ansible-project/ifi8_8FTKVo/QZKcBi0j_xIJ
     #
     - name: Check if path exists
-#      stat: path=/data/svnroot/tex/latex/latex
       stat: path={{tmpdir}}
       register: check_path
 
@@ -82,5 +89,3 @@
       #debug: msg="Boohoo, the path doesn't exist..."
       fail: msg="The path {{tmpdir}} doesn't exist, creating..."
       when: check_path.stat.exists == false
-
-
