@@ -10,7 +10,8 @@
 # 2. Tasks:
 #    o Determine if svnrepo directory exists, abort if not
 #    o Determine if tmpdir directory exists using stat
-#
+#    o Advise that /tmp/svn-to-git directory exists if it does not
+#    o Create the /tmp/svn-to-git directory if it does not
 #
 # ...
 # 10. Remove /tmp/svn-to-git
@@ -85,21 +86,22 @@
     # Re: [ansible-project] file module: absent recurse=yes and Directory not empty
     # https://www.mail-archive.com/ansible-project@googlegroups.com/msg04038.html
 
+    # Advise that /tmp/svn-to-git directory exists
     - name: It exists
       debug: msg='The path {{tmpdir}} exists!'
       when: check_path.stat.exists
       
     # Advise that /tmp/svn-to-git directory is being created
-    - name: Advise tmpdir is being created
+    - name: Temporary directory is being created
       debug: msg="Creating {{tmpdir}}"
       when: check_path.stat.exists == false
       
-    # Create the /tmp/svn-to-git directory
+    # Create the temporary directory
     - name: Create {{tmpdir}}
       shell: /bin/mkdir -p {{tmpdir}}
       when: check_path.stat.exists == false
 
-    #- name: It doesn't exist
+    #- name: Temporary doesn't exist, fail.
     #  #debug: msg="Boohoo, the path doesn't exist..."
     #  fail: msg="The path {{tmpdir}} doesn't exist, creating..."
     #  when: check_path.stat.exists == false
