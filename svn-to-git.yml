@@ -128,7 +128,7 @@
     # ==============================================
     - name: Creating svn directory under temporary directory
       shell: /bin/mkdir -p {{tmpdir}}/svn
-      
+
     # =========================================
     # Verify temporary directory/svn exists
     # =========================================
@@ -175,3 +175,6 @@
     # =====================================================
     # Copy svn repo to svn directory in temporary directory
     # =====================================================
+    - name: Copy svn repo to temporary directory/svn
+      shell: /usr/bin/rsync -va --stats --progress {{svnrepo}} {{tmpdir}}/svn
+      
