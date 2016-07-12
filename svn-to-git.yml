@@ -179,4 +179,31 @@
     # =====================================================
     - name: Copy svn repo to temporary directory/svn
       shell: /usr/bin/rsync -va --stats --progress {{svnrepo}} {{tmpdir}}/svn
-      
+
+    # =====================================================
+    # Get svn repo basename
+    # =====================================================
+#    - name: Get svn repo basename
+#      shell: /usr/bin/basename {{svnrepo}}
+#      register: basename
+
+#
+# basename of a list of files returned from 'with_fileglobs'
+# There is a basename jinja2 filter provided with ansible.
+# Just use:
+#   "{{ item|basename }}"
+# https://groups.google.com/forum/#!msg/ansible-project/oKrK24bfVPk/ZpvgI4Rk5wMJ
+#
+
+#    - name: Report basename
+#      debug: msg="{{svnrepo|basename}}"
+
+    # =====================================================
+    # Get svn repo authors
+    # =====================================================
+#    - name: Get svn repo authors
+#      shell: cd {{tmpdir}}/svn; /usr/bin/svn log -q | /bin/grep -e '^r' | /usr/bin/awk 'BEGIN { FS = "|" } ; { print$2 }' | /usr/bin/sort | /usr/bin/uniq
+#      register: theauthors
+
+#    - name: Report theauthors
+#      debug: msg="theauthors = {{theauthors}}"
