@@ -1,0 +1,31 @@
+push-to-github.txt
+Created Thu Mar 17 10:05:59 AKDT 2016
+Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+
+
+Push an existing repository to github
+
+
+1. Create new repository on github either online or:
+$ git-repo-create ssh://git@github.com/marcilr/git-mynewrepo
+
+2. To push to github repo add the URL for the remote repository
+where your local repository will be pushed.
+
+Set the new remote:
+$ git remote add origin remote repository URL
+
+Verify new remote URL:
+$ git remote -v
+
+3. Push local repository to github:
+$ git push origin master
+
+github.com/
+
+
+Links
+=====
+Adding an existing project to GitHub using the command line
+https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/
+

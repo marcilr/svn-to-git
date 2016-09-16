@@ -1,0 +1,20 @@
+README
+Created Thu Mar 17 10:02:58 AKDT 2016
+Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+
+
+Filelist
+========
+ansible.txt
+  ansible - run a command somewhere else
+
+design.txt
+  Design
+
+implementation.txt
+  Implementation
+  Steps required to convert svn to git repo
+
+push-to-github.txt
+  Push an existing repository to github
+  https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/
