@@ -1,0 +1,226 @@
+#!/bin/bash
+# svn-to-git
+# Created Mon Jun 13 14:47:05 AKDT 2016
+# Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+#
+# Converted svn repository to git.
+#
+# Usage: ${0} <svn> <git>"
+#     -d | --debug   Enable debugging.
+#     -h | --help    Create non-hierarchical repository.
+#     <svn>          Local subversion repository path.
+#                      like: /data/svnroot/tex/wrt54gl/wrt54gl/
+#     <git>          Local git repository path.
+#                      like: /data/git/tex/wrt54gl/
+#
+# 1. Create /tmp/svn-to-git/ temporary directory
+# 2. Copy source svn repo to temporary directory
+#
+
+# =================================================
+# Configuration
+# =================================================
+
+#
+# Enable/disable debugging.
+#
+DEBUG=true
+
+TMPDIR=/tmp/${0}
+
+# Configure svn and git base directories
+SVNROOT=/data/svnroot
+GITROOT=/data/git
+
+
+# =================================================
+# Binaries
+# =================================================
+BASENAME=/usr/bin/basename
+MKDIR=/bin/mkdir
+RM=/bin/rm
+RSYNC=/usr/bin/rsync
+
+# =================================================
+# Functions
+# =================================================
+
+#
+# debug()
+# Output debugging text.
+# INPUT: $1 - Text to output if DEBUG="
+#
+function debug {
+
+  if [ ${DEBUG} = "true" ]; then
+    echo "debug() ${1}"
+  fi
+
+}
+
+
+#
+# message()
+# Display specified message passed as argument.
+#
+# INPUT
+# =====
+# Message to display as argument.
+#
+# RESULTS
+# =======
+# Displays argument to stdio.
+#
+function message {
+
+  echo "${1}"
+
+}
+
+
+#
+# usage()
+# Display usage and exit.
+#
+function usage(){
+  message "Usage: ${0} <svn> <git>"
+  message "   -d | --debug   Enable debugging."
+  message "   -h | --help    Create non-hierarchical repository."
+  message "  <svn>           Local subversion repository path."
+  message "                    like: /data/svnroot/tex/wrt54gl/wrt54gl/"
+  message "  <git>           Local git repository path."
+  message "                    like: /data/git/tex/wrt54gl/"
+  message
+} # End usage()
+
+
+#
+# process-cli-args()
+#
+# Links
+# =====
+# How to process command-line args in bash scripts
+# http://debaan.blogspot.com/2007/06/how-to-process-command-line-args-in.html
+#
+function process-cli-args(){
+
+  debug "process-cli-args() START"
+
+  # Display number of command line arguments
+  debug "process-cli-args() number args=${#commandline_args[@]}"
+
+  if [ ${#commandline_args[@]} -lt 2 ]; then
+    usage
+    message "Must specify source svn and destination git repos, aborting."
+    exit 1
+  fi
+
+  # Loop over command line arguments (in correct order).
+  for ARG in "${commandline_args[@]}"; do
+    debug "process-cli-args() ARG=${ARG}"
+    case ${ARG} in
+      "-d" | "--debug")
+        DEBUG=true
+        debug "process-cli-args() DEBUG=true"
+        ;;
+      "-h" | "--help")
+        usage
+        exit 0
+        ;;
+      *)
+        if [ -z ${SVNREPO} ]; then
+          SVNREPO=${ARG}
+        else
+          GITREPO=${ARG}
+        fi
+        ;;
+    esac
+  done
+
+  #
+  # FIXME: Need code here to remove any trailing slash
+  #        from SVNREPO or GITREPO.
+  #
+
+  debug "process-cli-args() SVNREPO=${SVNREPO}"
+  debug "process-cli-args() GITREPO=${GITREPO}"
+
+  debug "process-cli-args() END"
+
+} # End process-cli-args()
+
+
+#
+# Create temporary directory
+# Removes and creates new temporary directory.
+#
+# USES: TMPDIR
+#
+function create-temporary-directory() {
+  debug "create-temporary-directory() START"
+
+  debug "create-temporary-directory() TMPDIR:    ${TMPDIR}"
+
+  # Safely remove temporary directory contents
+  if [ -d "${TMPDIR}" ]; then
+    debug "create-temporary-directory() Removing:  ${TMPDIR}"
+    CMD="${RM} -rf ${TMPDIR}"
+    debug "create-temporary-directory() Executing: ${CMD}"
+    eval "${CMD}"
+  fi
+
+  debug "create-temporary-directory() Creating:  ${TMPDIR}"
+  CMD="${MKDIR} ${TMPDIR}"
+  debug "create-temporary-directory() Executing: ${CMD}"
+  eval "${CMD}"
+
+  debug "create-temporary-directory() END"
+
+} # End create-temporary-directory()
+
+
+#
+# copy-svn-repo()
+#
+# Copy the subversion repository to temporary directory.
+#
+# USES: SVNREPO - Subversion repostory
+#
+function copy-svn-repo() {
+  debug "copy-svn-repo() START"
+
+  debug "copy-svn-repo() SVNREPO=${SVNREPO}"
+
+  if [ -d "${SVNREPO}" ]; then
+    debug "copy-svn-repo() Copying ${SVNREPO} to ${TMPDIR}"
+  fi
+
+
+  debug "copy-svn-repo() END"
+} # End copy-svn-repo()
+
+
+# =================================================
+# Main
+# =================================================
+debug "Main START"
+
+# Save command line arguments in global variable for use by process-cli-args.
+commandline_args=("$@")
+
+# Process command-line arguments.
+process-cli-args
+
+# Get script name
+BASE=`${BASENAME} "${0}"`
+
+# Build tmporary directory name using basename
+TMPDIR="/tmp/${BASE}"
+
+# Create temporary directory
+create-temporary-directory
+
+# Copy subversion repo
+copy-svn-repo
+
+debug "Main END"

@@ -1,0 +1,49 @@
+README
+Created Thu May 12 08:09:30 AKDT 2016
+Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+
+
+The original svn-to-git-convert to convert subversion repos to git
+works well.  However, I need to refactor it to work on hierarchical
+directory repos.
+
+Also the originl appears to checkout hierarchical directories
+underneath the repo being converted.  Need to investigate,
+understand and fix.
+
+
+Filelist
+========
+ansible.txt
+  ansible - run a command somewhere else
+
+design.txt
+  Design for subversion to git
+
+implementation.txt
+Created Thu Jun  9 15:02:02 AKDT 2016
+Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+
+implementation.txt
+  Steps required to convert svn to git repo
+
+links.txt
+  Subversion to git related links
+
+svn-to-git
+  Bash script to convert subversion repository to git.
+
+svn-to-git.txt
+  Subversion to git migration
+
+svn-to-git.yml
+  Ansible playbook to convert svn repo to git
+  Execute with:
+  $ ansible-playbook svn-to-git.yml
+
+test-svn-to-git
+  Test driver for svn-to-git svn to git script
+
+VERSION
+  svn to git conversion project version
+

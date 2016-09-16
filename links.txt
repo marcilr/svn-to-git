@@ -1,0 +1,29 @@
+links.txt
+Created Thu Jun  9 16:10:15 AKDT 2016
+Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+
+links.txt
+Created Tue Jan 26 13:25:47 AKST 2016
+Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+
+
+Subversion to git related links
+
+
+Links
+=====
+Cleanly Migrate Your Subversion Repository To a GIT Repository
+by Jon Maddox
+http://jonmaddox.com/2008/03/05/cleanly-migrate-your-subversion-repository-to-a-git-repository/
+
+Creating a svn.authorsfile when migrating from subversion to git
+http://technicalpickles.com/posts/creating-a-svn-authorsfile-when-migrating-from-subversion-to-git/
+
+Git and Other Systems - Migrating to Git
+Chapter 2, Pro Git, 2nd Edition (2014)
+https://git-scm.com/book/en/v2/Git-and-Other-Systems-Migrating-to-Git
+
+Migrate from SVN to GIT with history
+January 1, 2011 by John Clarke Mills
+Some very good syntax here based on Jon Maddox page.
+http://www.johnclarkemills.com/2011/01/01/migrate-from-svn-to-git-with-history/

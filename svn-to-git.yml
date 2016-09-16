@@ -1,0 +1,209 @@
+# svn-to-git.yml2
+# Created Fri May 27 10:39:03 AKDT 2016
+# Copyright (C) 2016 by Raymond E. Marcil <marcilr@gmail.com>
+#
+# Ansible script o convert subversion repo to git.
+#
+# Implementation
+# ==============
+# 1. Define variables
+# 2. Tasks:
+#    o Determine if svnrepo directory exists, abort if not
+#    o Determine if tmpdir directory exists using stat
+#    o Advise that /tmp/svn-to-git directory exists if it does not
+#    o Create the /tmp/svn-to-git directory if it does not
+#
+# ...
+# 10. Remove /tmp/svn-to-git
+#
+# Debugging output:
+#   register: out
+#   - debug: var=out.stdout_lines
+#
+# --serverfault.com/questions/537060/how-to-see-stdout-of-ansible-commands
+#
+#
+# Links
+# =====
+# How to see stdout of ansible commands?
+# http://serverfault.com/questions/537060/how-to-see-stdout-of-ansible-commands
+#
+---
+- hosts: htpc
+
+  # Variables
+  vars:
+    svnrepo: "/data/svnroot/tex/latex/latex"
+#    svnrepo: "/bad/test/path"
+    gitrepo: "/data/git/tex/latex"
+    tmpdir:  "/tmp/svn-to-git"
+    authors: "{{tmpdir}}/authors"
+
+  tasks:
+    # Output Variables
+    - debug: var=svnrepo verbosity=2
+    - debug: var=gitrepo verbosity=2
+    - debug: var=tmpdir  verbosity=2
+    - debug: var=authors verbosity=2
+
+    - shell: echo "hello world"
+
+    - shell: /bin/hostname
+      register: out
+    - debug: var=out.stdout_lines
+
+    - shell: type git
+      register: out
+    - debug: var=out.stdout_lines
+
+    #
+    # Determine if svnrepo directory exists
+    #
+    # Conditionally execute a task if directory exists?
+    # https://groups.google.com/forum/#!msg/ansible-project/ifi8_8FTKVo/QZKcBi0j_xIJ
+    #
+    - name: Check if svnrepo exists
+      stat: path={{svnrepo}}
+      register: check_path
+
+    - name: The svnrepo exists
+      debug: msg='The path {{svnrepo}} exists!'
+      when: check_path.stat.exists
+
+    - name: Fail, svnrepo does not exist
+      #debug: msg="Boohoo, the path doesn't exist..."
+      fail: msg="The path {{svnrepo}} doesn't exist..."
+      when: check_path.stat.exists == false
+
+    #
+    # Check if temporary directory exists
+    #
+    # Conditionally execute a task if directory exists?
+    # https://groups.google.com/forum/#!msg/ansible-project/ifi8_8FTKVo/QZKcBi0j_xIJ
+    #
+    - name: Check if temporary directory exists
+      stat: path={{tmpdir}}
+      register: check_path
+
+    # Re: [ansible-project] file module: absent recurse=yes and Directory not empty
+    # https://www.mail-archive.com/ansible-project@googlegroups.com/msg04038.html
+
+    # Advise that /tmp/svn-to-git directory exists
+    - name: Advise temporary directory exists
+      debug: msg='The path {{tmpdir}} exists!'
+      when: check_path.stat.exists
+      
+    # Advise that /tmp/svn-to-git directory is being created
+    - name: Temporary directory is being created
+      debug: msg="Creating {{tmpdir}}"
+      when: check_path.stat.exists == false
+      
+    # Create the temporary directory
+    - name: Create {{tmpdir}}
+      shell: /bin/mkdir -p {{tmpdir}}
+      when: check_path.stat.exists == false
+
+    #- name: Temporary doesn't exist, fail.
+    #  #debug: msg="Boohoo, the path doesn't exist..."
+    #  fail: msg="The path {{tmpdir}} doesn't exist, creating..."
+    #  when: check_path.stat.exists == false
+
+    # =========================================
+    # Verify temporary directory exists
+    # =========================================
+    - name: Check if temporary directory exists
+      stat: path={{tmpdir}}
+      register: check_path
+
+    # Advise that temporary directory created
+    - name: Temporary directory created
+      debug: msg='Created {{tmpdir}}'
+      when: check_path.stat.exists
+
+    # On failure to create temporary directory, abort
+    - name: Check for temporary directory
+      fail: msg="Failed to create {{tmpdir}}, aborting."
+      when: check_path.stat.exists == false
+
+    # ==============================================
+    # Create svn directory under temporary directory
+    # ==============================================
+    - name: Creating svn directory under temporary directory
+      shell: /bin/mkdir -p {{tmpdir}}/svn
+
+    # =========================================
+    # Verify temporary directory/svn exists
+    # =========================================
+    - name: Check if temporary directory/svn exists
+      stat: path={{tmpdir}}/svn
+      register: check_path
+
+    # Advise that temporary directory/svn created
+    - name: Temporary directory created
+      debug: msg='Created {{tmpdir}}/svn'
+      when: check_path.stat.exists
+
+    # On failure to create temporary directory/svn, abort
+    - name: Check for temporary directory/svn
+      fail: msg="Failed to create {{tmpdir}}/svn, aborting."
+      when: check_path.stat.exists == false
+
+
+    # ==============================================
+    # Create git directory under temporary directory
+    # ==============================================
+    - name: Creating git directory under temporary directory
+      shell: /bin/mkdir -p {{tmpdir}}/git
+
+
+    # =========================================
+    # Verify temporary directory/git exists
+    # =========================================
+    - name: Check if temporary directory/git exists
+      stat: path={{tmpdir}}/git
+      register: check_path
+
+    # Advise that temporary directory/git created
+    - name: Temporary directory/git was created
+      debug: msg='Created {{tmpdir}}/git'
+      when: check_path.stat.exists
+
+    # On failure to create temporary directory/svn, abort
+    - name: Check for temporary directory/git
+      fail: msg="Failed to create {{tmpdir}}/git, aborting."
+      when: check_path.stat.exists == false
+
+
+    # =====================================================
+    # Copy svn repo to svn directory in temporary directory
+    # =====================================================
+    - name: Copy svn repo to temporary directory/svn
+      shell: /usr/bin/rsync -va --stats --progress {{svnrepo}} {{tmpdir}}/svn
+
+    # =====================================================
+    # Get svn repo basename
+    # =====================================================
+#    - name: Get svn repo basename
+#      shell: /usr/bin/basename {{svnrepo}}
+#      register: basename
+
+#
+# basename of a list of files returned from 'with_fileglobs'
+# There is a basename jinja2 filter provided with ansible.
+# Just use:
+#   "{{ item|basename }}"
+# https://groups.google.com/forum/#!msg/ansible-project/oKrK24bfVPk/ZpvgI4Rk5wMJ
+#
+
+#    - name: Report basename
+#      debug: msg="{{svnrepo|basename}}"
+
+    # =====================================================
+    # Get svn repo authors
+    # =====================================================
+#    - name: Get svn repo authors
+#      shell: cd {{tmpdir}}/svn; /usr/bin/svn log -q | /bin/grep -e '^r' | /usr/bin/awk 'BEGIN { FS = "|" } ; { print$2 }' | /usr/bin/sort | /usr/bin/uniq
+#      register: theauthors
+
+#    - name: Report theauthors
+#      debug: msg="theauthors = {{theauthors}}"
